@@ -2,12 +2,17 @@ package com.example.nosenko.l3;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.example.nosenko.l3.RicipientActivity.SENDER_TEXT;
 
@@ -44,7 +49,15 @@ public class MainActivity extends Activity {
     private View.OnClickListener listenerExplicit = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent();
+            final String myIntentView = "ru.startandroid.intent.action.showmustgoon";
+            //final String notMyIntentView = android.content.Intent.ACTION_VIEW;
+
+            Intent intent = new Intent(myIntentView);
+            //intent.setDataAndType(Uri.parse("url"), "image/*");
+            List<ResolveInfo> resolveInfoList = getPackageManager().queryIntentActivities(intent, 0);
+            if (resolveInfoList.size() != 0){
+                startActivity(intent);
+            }
         }
     };
 
